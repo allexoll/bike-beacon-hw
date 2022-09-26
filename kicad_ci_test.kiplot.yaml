@@ -157,6 +157,8 @@ outputs:
       use_gerber_x2_attributes: true
       use_gerber_net_attributes: true
 
+    layers: 
+      - "technical"
     # layers:
     #   - layer: F.Cu
     #     suffix: F_Cu
