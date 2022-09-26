@@ -28,59 +28,32 @@ do_trigger:
       - "Makefile"
       when: on_success
 
-pcb_io_sch:
+fabrication:
   extends: .build_step
   script:
-    - "make -C pcb_io erc_and_fab"
+    - "kiplot -d Fabrication -s run_erc,update_xml print_front print_bottom gerbers excellon_drill gerber_drills position"
   artifacts:
     expire_in: 1 day
     paths:
-      - pcb_io/Fabrication/
+      - Fabrication/
 
-pcb_io_pcb:
+assembly:
   extends: .build_step
   script:
-    - "make -C pcb_io drc_and_fab"
+    - "kiplot -d Assembly -s run_erc,update_xml run_drc print_front print_bottom position interactive_bom bom_html bom_csv"
   artifacts:
     expire_in: 1 day
     paths:
-      - pcb_io/Fabrication/
+      - Assembly/
 
-pcb_main_sch:
+documentation:
   extends: .build_step
   script:
-    - "make -C pcb_main erc_and_fab"
+    - "kiplot -d Documentation print_sch interactive_bom bom_html bom_csv print_front print_bottom position"
   artifacts:
     expire_in: 1 day
     paths:
-      - pcb_main/Fabrication/
-
-pcb_main_pcb:
-  extends: .build_step
-  script:
-    - "make -C pcb_main drc_and_fab"
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - pcb_main/Fabrication/
-
-pcb_prog_sch:
-  extends: .build_step
-  script:
-    - "make -C pcb_prog erc_and_fab"
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - pcb_prog/Fabrication/
-
-pcb_prog_pcb:
-  extends: .build_step
-  script:
-    - "make -C pcb_prog drc_and_fab"
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - pcb_prog/Fabrication/
+      - Documentation/
 
 do_join:
   stage: consolidate
@@ -88,9 +61,9 @@ do_join:
   artifacts:
     name: "$CI_COMMIT_REF_NAME"
     paths:
-      - pcb_io/Fabrication/
-      - pcb_main/Fabrication/
-      - pcb_prog/Fabrication/
+      - Fabrication/
+      - Assembly/
+      - Documentation/
   rules:
     - changes:
       - "*/*.kicad_sch"
