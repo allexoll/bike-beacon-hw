@@ -1,4 +1,4 @@
-sym_lib_table
+(sym_lib_table
   (lib (name "connectors")(type "KiCad")(uri "${KIPRJMOD}/kicad_libs/symbols/connectors.kicad_sym")(options "")(descr ""))
   (lib (name "dc_dc_regulators")(type "KiCad")(uri "${KIPRJMOD}/kicad_libs/symbols/dc_dc_regulators.kicad_sym")(options "")(descr ""))
   (lib (name "battery_management")(type "KiCad")(uri "${KIPRJMOD}/kicad_libs/symbols/battery_management.kicad_sym")(options "")(descr ""))
