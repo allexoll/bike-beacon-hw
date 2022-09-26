@@ -1,0 +1,110 @@
+
+stages:
+  - check
+  - build
+  - consolidate
+  - release
+
+do_trigger:
+  stage: check
+  script:
+    - echo "Starting"
+  rules:
+    - changes:
+      - "*/*.kicad_sch"
+      - "*/*.kicad_pcb"
+      - ".gitlab-ci.yml"
+      - "Makefile"
+      when: always
+
+.build_step:
+  image: setsoft/kicad_auto:latest
+  stage: build
+  rules:
+    - changes:
+      - "*/*.kicad_sch"
+      - "*/*.kicad_pcb"
+      - ".gitlab-ci.yml"
+      - "Makefile"
+      when: on_success
+
+pcb_io_sch:
+  extends: .build_step
+  script:
+    - "make -C pcb_io erc_and_fab"
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - pcb_io/Fabrication/
+
+pcb_io_pcb:
+  extends: .build_step
+  script:
+    - "make -C pcb_io drc_and_fab"
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - pcb_io/Fabrication/
+
+pcb_main_sch:
+  extends: .build_step
+  script:
+    - "make -C pcb_main erc_and_fab"
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - pcb_main/Fabrication/
+
+pcb_main_pcb:
+  extends: .build_step
+  script:
+    - "make -C pcb_main drc_and_fab"
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - pcb_main/Fabrication/
+
+pcb_prog_sch:
+  extends: .build_step
+  script:
+    - "make -C pcb_prog erc_and_fab"
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - pcb_prog/Fabrication/
+
+pcb_prog_pcb:
+  extends: .build_step
+  script:
+    - "make -C pcb_prog drc_and_fab"
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - pcb_prog/Fabrication/
+
+do_join:
+  stage: consolidate
+  script: echo Finished
+  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
+    paths:
+      - pcb_io/Fabrication/
+      - pcb_main/Fabrication/
+      - pcb_prog/Fabrication/
+  rules:
+    - changes:
+      - "*/*.kicad_sch"
+      - "*/*.kicad_pcb"
+      - ".gitlab-ci.yml"
+      - "*/Makefile"
+      when: on_success
+
+do_release:
+  stage: release
+  image: registry.gitlab.com/gitlab-automation-toolkit/gitlab-auto-release
+  script:
+    - gitlab_auto_release --changelog CHANGELOG.md --artifacts do_join
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+
