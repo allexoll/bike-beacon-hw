@@ -33,7 +33,7 @@ do_trigger:
 fabrication:
   extends: .build_step
   script:
-    - "kiplot -d Fabrication -s gerbers gerber_drills"
+    - "kiplot -d Fabrication gerbers gerber_drills"
   artifacts:
     expire_in: 1 day
     paths:
@@ -42,7 +42,7 @@ fabrication:
 assembly:
   extends: .build_step
   script:
-    - "kiplot -d Assembly -s print_front print_bottom position interactive_bom bom_html bom_csv bom_xlsx position"
+    - "kiplot -d Assembly print_front print_bottom position interactive_bom bom_html bom_csv bom_xlsx position"
   artifacts:
     expire_in: 1 day
     paths:
