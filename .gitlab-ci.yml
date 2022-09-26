@@ -15,6 +15,7 @@ do_trigger:
       - "*/*.kicad_pcb"
       - ".gitlab-ci.yml"
       - "Makefile"
+      - "*.kiplot.yaml"
       when: always
 
 .build_step:
@@ -26,6 +27,7 @@ do_trigger:
       - "*/*.kicad_pcb"
       - ".gitlab-ci.yml"
       - "Makefile"
+      - "*.kiplot.yaml"
       when: on_success
 
 fabrication:
@@ -70,6 +72,7 @@ do_join:
       - "*/*.kicad_pcb"
       - ".gitlab-ci.yml"
       - "*/Makefile"
+      - "*.kiplot.yaml"
       when: on_success
 
 do_release:
