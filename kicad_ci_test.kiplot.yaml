@@ -24,64 +24,22 @@ outputs:
       output: Schematic.pdf
 
   - name: 'print_front'
-    comment: "Print F.Cu+Dwgs.User"
+    comment: "Print F.Cu"
     type: pdf_pcb_print
     dir: .
     options:
       output_name: PCB_Top.pdf
     layers:
       - layer: F.Cu
-      - layer: Dwgs.User
 
   - name: 'print_bottom'
-    comment: "Print B.Cu+Dwgs.User"
+    comment: "Print B"
     type: pdf_pcb_print
     dir: .
     options:
       output_name: PCB_Bottom.pdf
     layers:
       - layer: B.Cu
-      - layer: Dwgs.User
-
-  - name: 'print_gnd'
-    comment: "Print GND+Dwgs.User"
-    type: pdf_pcb_print
-    dir: .
-    options:
-      output_name: PCB_GND.pdf
-    layers:
-      - layer: GND
-      - layer: Dwgs.User
-
-  - name: 'print_power'
-    comment: "Print Power_+3,3V+Dwgs.User"
-    type: pdf_pcb_print
-    dir: .
-    options:
-      output_name: PCB_Power.pdf
-    layers:
-      - layer: Power_+3,3V
-      - layer: Dwgs.User
-
-  - name: 'print_s1'
-    comment: "Print Señal_1+Dwgs.User"
-    type: pdf_pcb_print
-    dir: .
-    options:
-      output_name: PCB_S1.pdf
-    layers:
-      - layer: Señal_1
-      - layer: Dwgs.User
-
-  - name: 'print_s2'
-    comment: "Print Señal_2+Dwgs.User"
-    type: pdf_pcb_print
-    dir: .
-    options:
-      output_name: PCB_S2.pdf
-    layers:
-      - layer: Señal_2
-      - layer: Dwgs.User
 
   - name: 'interactive_bom'
     comment: "Interactive Bill of Materials (HTML)"
@@ -159,39 +117,7 @@ outputs:
 
     layers: 
       - "technical"
-    # layers:
-    #   - layer: F.Cu
-    #     suffix: F_Cu
-    #   - layer: B.Cu
-    #     suffix: B_Cu
-    #   - layer: GND
-    #     suffix: GND_Cu
-    #   - layer: Power_+3,3V
-    #     suffix: Power_Cu
-    #   - layer: Señal_1
-    #     suffix: S1_Cu
-    #   - layer: Señal_2
-    #     suffix: S2_Cu
-    #   - layer: F.Paste
-    #     suffix: F_Paste
-    #   - layer: B.Paste
-    #     suffix: B_Paste
-    #   - layer: F.SilkS
-    #     suffix: F_SilkS
-    #   - layer: B.SilkS
-    #     suffix: B_SilkS
-    #   - layer: F.Mask
-    #     suffix: F_Mask
-    #   - layer: B.Mask
-    #     suffix: B_Mask
-    #   - layer: Dwgs.User
-    #     suffix: Dwgs_User
-    #   - layer: Edge.Cuts
-    #     suffix: Edge_Cuts
-    #   - layer: F.Fab
-    #     suffix: F_Fab
-    #   - layer: B.Fab
-    #     suffix: B_Fab
+ 
 
   - name: excellon_drill
     comment: "Excellon drill files"
