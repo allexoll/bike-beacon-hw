@@ -7,9 +7,15 @@ preflight:
   run_drc: true
   check_zone_fills: false
   ignore_unconnected: false
+  filters:
+    - filter: 'ignore one sided vias'
+      error: 'via_dangling'
+      regex:  '*'
+    - filter: 'silk on pads'
+      error: 'silk_overlap'
+      regex:  '*'
 
 outputs:
-
   - name: 'print_sch'
     comment: "Print schematic (PDF)"
     type: pdf_sch_print
@@ -145,7 +151,7 @@ outputs:
     options:
       # generic layer options
       exclude_edge_layer: true
-      exclude_pads_from_silkscreen: false
+      exclude_pads_from_silkscreen: true
       use_aux_axis_as_origin: false
       plot_sheet_reference: false
       plot_footprint_refs: true
@@ -156,7 +162,7 @@ outputs:
 
       # gerber options
       line_width: 0.1
-      subtract_mask_from_silk: false
+      subtract_mask_from_silk: true
       use_protel_extensions: false
       gerber_precision: 4.6
       create_gerber_job_file: true
