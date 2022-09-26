@@ -53,7 +53,7 @@ assembly:
 documentation:
   extends: .build_step
   script:
-    - "kiplot -d Documentation print_sch print_front print_bottom print_gnd print_power print_s1 print_s2 interactive_bom bom_html bom_csv pcb_top_b pcb_bot_g step"
+    - "kiplot -d Documentation print_sch print_front print_bottom interactive_bom bom_html bom_csv pcb_top_b pcb_bot_g step"
   artifacts:
     expire_in: 1 day
     paths:
