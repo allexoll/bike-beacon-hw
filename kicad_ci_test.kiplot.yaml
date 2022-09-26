@@ -10,10 +10,10 @@ preflight:
   filters:
     - filter: 'ignore one sided vias'
       error: 'via_dangling'
-      regex:  '*'
+      #regex:  '*'
     - filter: 'silk on pads'
       error: 'silk_overlap'
-      regex:  '*'
+      #regex:  '*'
 
 outputs:
   - name: 'print_sch'
