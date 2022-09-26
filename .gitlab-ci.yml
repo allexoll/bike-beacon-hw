@@ -19,7 +19,7 @@ do_trigger:
       when: always
 
 .build_step:
-  image: setsoft/kicad_auto:latest
+  image: setsoft/kicad_auto:ki6
   stage: build
   rules:
     - changes:
